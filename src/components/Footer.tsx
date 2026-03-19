@@ -79,7 +79,6 @@ const Footer = () => (
       {/* Contact Section Distributed */}
       <div className="grid grid-cols-1 md:grid-cols-3 justify-between gap-16 lg:gap-32 py-16 border-b border-border/70">
         <div className="flex flex-col">
-          <h4 className="text-[11px] font-bold text-foreground uppercase tracking-widest mb-6">Coimbatore</h4>
           <p className="text-[14px] text-foreground font-bold mb-3">Headquarters</p>
           <p className="text-[14px] text-muted-foreground leading-relaxed">
             536, Thudiyalur - Saravanampatti Rd,<br />
@@ -89,7 +88,6 @@ const Footer = () => (
         </div>
 
         <div className="flex flex-col">
-          <h4 className="text-[11px] font-bold text-foreground uppercase tracking-widest mb-6">Bengaluru</h4>
           <p className="text-[14px] text-foreground font-bold mb-3">Strategic Office</p>
           <p className="text-[14px] text-muted-foreground leading-relaxed">
             Embassy Tech Village, ORR, Bellandur,<br />
@@ -99,7 +97,6 @@ const Footer = () => (
         </div>
 
         <div className="flex flex-col">
-          <h4 className="text-[11px] font-bold text-foreground uppercase tracking-widest mb-6">Contact</h4>
           <p className="text-[14px] text-foreground font-bold mb-3">Reach Us</p>
           <div className="flex flex-col gap-2.5">
             <p className="text-[14px] text-muted-foreground">

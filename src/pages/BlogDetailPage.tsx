@@ -119,6 +119,36 @@ const BlogDetailPage = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const parseInline = (text: string) => {
+    // Process Bold: **text**
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+    return parts.map((part, index) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return <strong key={index} className="font-extrabold text-[#111]">{part.slice(2, -2)}</strong>;
+      }
+
+      // Process Links: [text](url)
+      const linkParts = part.split(/(\[.*?\]\(.*?\))/g);
+      return linkParts.map((linkPart, linkIndex) => {
+        const linkMatch = linkPart.match(/\[(.*?)\]\((.*?)\)/);
+        if (linkMatch) {
+          return (
+            <a
+              key={`${index}-${linkIndex}`}
+              href={linkMatch[2]}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#064ee3] hover:underline font-bold"
+            >
+              {linkMatch[1]}
+            </a>
+          );
+        }
+        return linkPart;
+      });
+    });
+  };
+
   return (
     <Layout>
       {/* Back button */}
@@ -196,11 +226,45 @@ const BlogDetailPage = () => {
 
             {/* Article body */}
             <div className="prose-custom">
-              {content.split("\n\n").map((para, i) => {
+              {article.content.split("\n\n").map((para, i) => {
+                // Headings
                 if (para.startsWith("## ")) {
-                  return <h2 key={i} className="mt-10 mb-4">{para.replace("## ", "")}</h2>;
+                  return <h2 key={i} className="text-2xl font-bold mt-10 mb-4">{para.replace("## ", "")}</h2>;
                 }
-                return <p key={i} className="text-base text-foreground/90 leading-[1.7] mb-4">{para}</p>;
+
+                // Bullet Lists
+                if (para.startsWith("- ") || para.startsWith("* ")) {
+                  const items = para.split("\n").map(line => line.replace(/^[-*]\s/, ""));
+                  return (
+                    <ul key={i} className="list-disc pl-6 my-4 space-y-2">
+                      {items.map((item, j) => (
+                        <li key={j} className="text-base text-foreground/90 leading-relaxed">
+                          {parseInline(item)}
+                        </li>
+                      ))}
+                    </ul>
+                  );
+                }
+
+                // Images
+                if (para.trim().startsWith("![")) {
+                  const match = para.match(/!\[(.*?)\]\((.*?)\)/);
+                  if (match) {
+                    return (
+                      <div key={i} className="my-10 rounded-2xl overflow-hidden shadow-lg">
+                        <img src={match[2]} alt={match[1]} className="w-full object-cover" />
+                        {match[1] && <p className="text-center text-xs text-muted-foreground mt-3 italic">{match[1]}</p>}
+                      </div>
+                    );
+                  }
+                }
+
+                // Standard Paragraph with Bold support
+                return (
+                  <p key={i} className="text-base text-foreground/90 leading-[1.7] mb-4">
+                    {parseInline(para)}
+                  </p>
+                );
               })}
             </div>
 
