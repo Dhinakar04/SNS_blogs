@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import ArticleCard from "@/components/ArticleCard";
 import { categories, institutionalHub, productsAndServices } from "@/data/mockData";
-import { ArrowUpRight, ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
+import { ArrowUpRight, ArrowLeft, ArrowRight, Loader2, ChevronDown } from "lucide-react";
 import { useState, useRef } from "react";
 import { useArticles } from "@/hooks/useArticles";
 
@@ -292,16 +292,17 @@ const Index = () => {
               );
             })}
           </div>
-          <div className="relative flex justify-center mt-10 mb-2">
+          <div className="relative flex justify-center mt-12 mb-4">
             <div className="absolute inset-0 flex items-center pointer-events-none">
               <div className="w-full border-t border-border/80"></div>
             </div>
-            <div className="relative bg-background px-4">
+            <div className="relative bg-background px-6">
               <button
                 onClick={() => setShowAllInst(!showAllInst)}
-                className="px-6 py-2.5 bg-secondary text-secondary-foreground text-[13px] font-bold rounded-[20px] hover:bg-secondary/80 transition-colors"
+                className="flex items-center gap-2 px-8 py-3 bg-zinc-900 text-white text-[13px] font-bold rounded-full hover:bg-zinc-800 transition-all hover:scale-105 shadow-xl active:scale-95"
               >
-                {showAllInst ? "Show less" : "Show more"}
+                <span>{showAllInst ? "Show less" : "Show all Hubs & Services"}</span>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${showAllInst ? "rotate-180" : ""}`} />
               </button>
             </div>
           </div>
