@@ -144,7 +144,7 @@ const Index = () => {
                         className="px-3 py-1 text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-wider shadow-sm"
                         style={{
                           backgroundColor: getInstituionColor(featured.ecosystem),
-                          color: ["Engineering", "Arts", "School", "Physiotherapy", "iHub", "SNS iHub", "Bspine"].includes(featured.ecosystem) ? "#000" : "#fff"
+                          color: ["Engineering", "Arts", "School", "Physiotherapy", "Nursing", "Allied Health Science", "iHub", "SNS iHub", "Bspine"].includes(featured.ecosystem) ? "#000" : "#fff"
                         }}
                       >
                         {featured.ecosystem}

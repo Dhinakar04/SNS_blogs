@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Linkedin, Youtube, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { categories } from "@/data/mockData";
 
 const Footer = () => (
@@ -30,7 +30,7 @@ const Footer = () => (
                 { label: 'Trending', path: '/trending' }
               ].map(link => (
                 <li key={link.label}>
-                  <Link to={link.path} className="text-[14px] text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
+                  <Link to={link.path} className="text-[14px] text-muted-foreground hover:text-foreground hover:bg-black/5 px-2 py-1 -ml-2 rounded-md transition-all whitespace-nowrap">
                     {link.label}
                   </Link>
                 </li>
@@ -52,7 +52,7 @@ const Footer = () => (
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[14px] text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1.5 whitespace-nowrap"
+                    className="text-[14px] text-muted-foreground hover:text-foreground hover:bg-black/5 px-2 py-1 -ml-2 rounded-md transition-all flex items-center gap-1.5 whitespace-nowrap w-fit"
                   >
                     {link.label} <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
                   </a>
@@ -66,7 +66,7 @@ const Footer = () => (
             <ul className="flex flex-col gap-5">
               {categories.slice(0, 7).map(c => (
                 <li key={c}>
-                  <Link to={`/latest?category=${encodeURIComponent(c)}`} className="text-[14px] text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">
+                  <Link to={`/latest?category=${encodeURIComponent(c)}`} className="text-[14px] text-muted-foreground hover:text-foreground hover:bg-black/5 px-2 py-1 -ml-2 rounded-md transition-all whitespace-nowrap">
                     {c}
                   </Link>
                 </li>

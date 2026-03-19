@@ -119,7 +119,7 @@ const ArticleCard = ({ article, hideEcosystemLabel }: ArticleCardProps) => {
               className="inline-block px-4 py-1.5 text-[12px] font-bold rounded-[20px] transition-colors"
               style={{
                 backgroundColor: getInstituionColor(article.ecosystem) || "#f3f4f6",
-                color: ["Engineering", "Arts", "School", "Physiotherapy", "iHub", "SNS iHub", "Bspine"].includes(article.ecosystem) ? "#000" : "#fff"
+                color: ["Engineering", "Arts", "School", "Physiotherapy", "Nursing", "Allied Health Science", "iHub", "SNS iHub", "Bspine"].includes(article.ecosystem) ? "#000" : "#fff"
               }}
             >
               {article.ecosystem}

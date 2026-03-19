@@ -176,7 +176,7 @@ const BlogDetailPage = () => {
                 className="inline-block px-3 py-1 text-[10px] md:text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-widest shadow-sm"
                 style={{
                   backgroundColor: getInstituionColor(article.ecosystem),
-                  color: ["Engineering", "Arts", "School", "Physiotherapy", "iHub", "SNS iHub", "Bspine"].includes(article.ecosystem) ? "#000" : "#fff"
+                  color: ["Engineering", "Arts", "School", "Physiotherapy", "Nursing", "Allied Health Science", "iHub", "SNS iHub", "Bspine"].includes(article.ecosystem) ? "#000" : "#fff"
                 }}
               >
                 {article.ecosystem}
