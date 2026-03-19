@@ -96,7 +96,7 @@ const Header = () => {
         </nav>
 
         <div className="flex items-center gap-2 relative">
-          <div className="flex items-center">
+          <div className="hidden lg:flex items-center">
             <input
               ref={searchRef}
               type="text"

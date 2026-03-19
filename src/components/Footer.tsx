@@ -3,7 +3,7 @@ import { Linkedin, Youtube, ArrowUpRight } from "lucide-react";
 import { categories } from "@/data/mockData";
 
 const Footer = () => (
-  <footer className="w-full bg-[#f8f8f8] border-t border-border pt-20 pb-12 px-6 md:px-12 lg:px-24 font-sans text-foreground">
+  <footer className="w-full bg-[#f8f8f8] border-t border-border pt-20 pb-32 md:pb-12 px-6 md:px-12 lg:px-24 font-sans text-foreground">
     <div className="max-w-[1400px] mx-auto">
       {/* Top Section with Logo and Tagline */}
       <div className="flex flex-col md:flex-row justify-between items-start pb-16 border-b border-border/70">
