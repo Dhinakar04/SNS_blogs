@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 6.7%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 6.7%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 6.7%;
+
+    --primary: 0 0% 6.7%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 97.6%;
+    --secondary-foreground: 0 0% 6.7%;
+
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 40%;
+
+    --accent: 210 89% 40%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 91.8%;
+    --input: 0 0% 91.8%;
+    --ring: 210 89% 40%;
+
+    --radius: 0.375rem;
+
+    --surface-hover: 0 0% 97.6%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 40%;
+    --sidebar-primary: 0 0% 6.7%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 6.7%;
+    --sidebar-border: 0 0% 91.8%;
+    --sidebar-ring: 210 89% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased text-[14px];
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading text-foreground font-bold;
+  }
+
+  h1 {
+    @apply text-[32px] tracking-[-0.03em] leading-[1.1];
+  }
+
+  h2 {
+    @apply text-[24px] tracking-tight;
+  }
+
+  h3 {
+    @apply text-[18px] tracking-tight;
+  }
+
+  h4 {
+    @apply text-[16px] tracking-tight;
+  }
+
+  p {
+    @apply leading-[1.6] text-foreground text-[14px];
+  }
+}
+
+@layer components {
+  .metadata {
+    @apply text-[12px] font-bold uppercase tracking-widest text-muted-foreground;
+  }
+
+  .article-card {
+    @apply relative flex flex-col gap-3 cursor-pointer;
+  }
+
+  .article-card-image {
+    @apply overflow-hidden rounded-md;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.07);
+  }
+
+  .article-card-image img {
+    @apply transition-transform duration-500 ease-out group-hover:scale-105 w-full h-full object-cover;
+  }
+
+  .ai-summary {
+    @apply my-12 p-8 bg-secondary border border-border rounded-[20px];
+  }
+
+  .container-blog {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-spacing {
+    @apply py-12 md:py-16;
+  }
+}

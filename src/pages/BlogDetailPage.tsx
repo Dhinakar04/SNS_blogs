@@ -1,0 +1,156 @@
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import Layout from "@/components/Layout";
+import ArticleCard from "@/components/ArticleCard";
+import AISummaryBlock from "@/components/AISummaryBlock";
+import { Heart, Share2, Linkedin, Twitter, MessageCircle, Link as LinkIcon, ArrowLeft, Loader2 } from "lucide-react";
+import { useArticles } from "@/hooks/useArticles";
+
+const BlogDetailPage = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { data: articles = [], isLoading } = useArticles();
+
+  const article = articles.find(a => a.id === id);
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (article) {
+      setLikeCount(article.likes);
+    }
+  }, [article]);
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <div className="flex h-[70vh] items-center justify-center">
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        </div>
+      </Layout>
+    );
+  }
+
+  if (!article) {
+    return (
+      <Layout>
+        <div className="container-blog section-spacing text-center">
+          <h1 className="text-2xl font-bold">Article not found</h1>
+          <Link to="/" className="text-primary hover:underline mt-4 inline-block">Go home</Link>
+        </div>
+      </Layout>
+    );
+  }
+
+  const related = articles.filter(a => a.id !== article.id && (a.category === article.category || a.ecosystem === article.ecosystem)).slice(0, 3);
+
+  const content = article.content || `${article.excerpt}\n\nThis is a placeholder for the full article content. In a production environment, this would contain the complete article text with rich formatting, images, and embedded media.\n\n## Key Developments\n\nThe ${article.ecosystem} ecosystem continues to push boundaries in ${article.category.toLowerCase()}, setting new standards for institutional excellence.\n\n## Looking Ahead\n\nAs we move further into 2026, the initiatives described here will continue to evolve, creating lasting impact across the entire SNS Ecosystem.`;
+
+  const handleShare = (platform: string) => {
+    const url = window.location.href;
+    const text = article.title;
+    const links: Record<string, string> = {
+      linkedin: `https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+      twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`,
+      whatsapp: `https://wa.me/?text=${encodeURIComponent(text + " " + url)}`,
+    };
+    if (links[platform]) window.open(links[platform], "_blank");
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <Layout>
+      {/* Back button */}
+      <div className="container-blog pt-6 pb-2">
+        <button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors font-medium"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back
+        </button>
+      </div>
+
+      {/* Hero */}
+      <div className="relative w-full aspect-[21/9] max-h-[500px] overflow-hidden">
+        <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+          <div className="container-blog">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="inline-block px-2 py-0.5 bg-background/20 text-primary-foreground text-[11px] font-medium rounded-[20px] backdrop-blur-sm">{article.category}</span>
+              <span className="inline-block px-2 py-0.5 bg-background/20 text-primary-foreground text-[11px] font-medium rounded-[20px] backdrop-blur-sm">{article.ecosystem}</span>
+            </div>
+            <h1 className="text-3xl md:text-5xl text-primary-foreground max-w-3xl">{article.title}</h1>
+            <div className="flex items-center gap-4 mt-4">
+              <p className="text-sm text-primary-foreground/70">{article.author} · {article.date} · {article.readTime} read</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container-blog py-12">
+        <div className="flex gap-12 relative">
+          {/* Share sidebar */}
+          <aside className="hidden lg:block w-12 shrink-0">
+            <div className="sticky top-20 flex flex-col items-center gap-4">
+              <p className="metadata">Share</p>
+              <button onClick={() => handleShare("linkedin")} className="p-2 text-muted-foreground hover:text-foreground transition-colors"><Linkedin className="w-4 h-4" /></button>
+              <button onClick={() => handleShare("twitter")} className="p-2 text-muted-foreground hover:text-foreground transition-colors"><Twitter className="w-4 h-4" /></button>
+              <button onClick={() => handleShare("whatsapp")} className="p-2 text-muted-foreground hover:text-foreground transition-colors"><MessageCircle className="w-4 h-4" /></button>
+              <button onClick={handleCopyLink} className="p-2 text-muted-foreground hover:text-foreground transition-colors"><LinkIcon className="w-4 h-4" /></button>
+              <div className="w-6 border-t border-border/60 my-1" />
+              <button
+                onClick={() => { setLiked(!liked); setLikeCount(prev => liked ? prev - 1 : prev + 1); }}
+                className={`flex flex-col items-center gap-1 p-2 transition-colors ${liked ? "text-accent" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <Heart className={`w-4 h-4 ${liked ? "fill-accent" : ""}`} />
+                <span className="text-[11px] font-semibold">{likeCount}</span>
+              </button>
+            </div>
+          </aside>
+
+          {/* Main content */}
+          <article className="flex-1 min-w-0 max-w-3xl">
+            <AISummaryBlock articleTitle={article.title} articleExcerpt={article.excerpt} />
+
+            {/* Article body */}
+            <div className="prose-custom">
+              {content.split("\n\n").map((para, i) => {
+                if (para.startsWith("## ")) {
+                  return <h2 key={i} className="mt-10 mb-4">{para.replace("## ", "")}</h2>;
+                }
+                return <p key={i} className="text-base text-foreground/90 leading-[1.7] mb-4">{para}</p>;
+              })}
+            </div>
+
+            {/* Bottom bar */}
+            <div className="flex items-center mt-12 pt-8 border-t border-border">
+              <p className="text-sm text-muted-foreground">{copied ? "Link copied!" : ""}</p>
+            </div>
+          </article>
+        </div>
+
+        {/* Related articles */}
+        {related.length > 0 && (
+          <section className="mt-16 pt-12 border-t border-border">
+            <h2 className="text-xl font-bold mb-8">Related Articles</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+              {related.map(a => (
+                <ArticleCard key={a.id} article={a} />
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+    </Layout>
+  );
+};
+
+export default BlogDetailPage;
