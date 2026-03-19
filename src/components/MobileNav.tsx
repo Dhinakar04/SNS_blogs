@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Home, Zap, TrendingUp, Search, X, Mic } from "lucide-react";
+import { Home, Zap, TrendingUp, Search, X } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useArticles } from "@/hooks/useArticles";
 
@@ -76,7 +76,6 @@ const MobileNav = () => {
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 className="flex-1 bg-transparent border-none outline-none text-sm font-medium py-3 text-foreground placeholder:text-muted-foreground/50"
                             />
-                            <Mic className="w-5 h-5 text-muted-foreground/40 mr-2" />
                             <button
                                 onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
                                 className="bg-black/5 p-1.5 rounded-full hover:bg-black/10 active:bg-black/20"
