@@ -68,34 +68,42 @@ const BlogDetailPage = () => {
     <Layout>
       {/* Back button */}
       <div className="container-blog pt-6 pb-2">
-        <button
-          onClick={() => navigate(-1)}
+        <Link
+          to="/"
           className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors font-medium"
         >
           <ArrowLeft className="w-4 h-4" />
           Back
-        </button>
+        </Link>
       </div>
 
       {/* Hero */}
-      <div className="relative w-full aspect-[21/9] max-h-[500px] overflow-hidden">
+      <div className="relative w-full aspect-video md:aspect-[21/9] max-h-[500px] overflow-hidden">
         <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
           <div className="container-blog">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="inline-block px-2 py-0.5 bg-background/20 text-primary-foreground text-[11px] font-medium rounded-[20px] backdrop-blur-sm">{article.category}</span>
-              <span className="inline-block px-2 py-0.5 bg-background/20 text-primary-foreground text-[11px] font-medium rounded-[20px] backdrop-blur-sm">{article.ecosystem}</span>
+            <div className="flex flex-wrap items-center gap-2 mb-3">
+              <span className="inline-block px-3 py-1 bg-white/20 text-white text-[10px] md:text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-widest shadow-sm">
+                {article.category}
+              </span>
+              <span className="inline-block px-3 py-1 bg-white/20 text-white text-[10px] md:text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-widest shadow-sm">
+                {article.ecosystem}
+              </span>
             </div>
-            <h1 className="text-3xl md:text-5xl text-primary-foreground max-w-3xl">{article.title}</h1>
-            <div className="flex items-center gap-4 mt-4">
-              <p className="text-sm text-primary-foreground/70">{article.author} · {article.date} · {article.readTime} read</p>
+            <h1 className="text-2xl md:text-5xl font-bold text-white max-w-4xl leading-[1.2] drop-shadow-md">
+              {article.title}
+            </h1>
+            <div className="flex items-center gap-4 mt-3">
+              <p className="text-xs md:text-base font-medium text-white/90 drop-shadow-sm">
+                {article.author} · {article.date} · {article.readTime} read
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="container-blog py-12">
+      <div className="container-blog py-6 md:py-12">
         <div className="flex gap-12 relative">
           {/* Share sidebar */}
           <aside className="hidden lg:block w-12 shrink-0">

@@ -113,19 +113,22 @@ const Index = () => {
 
                 {/* Bottom content: Tags & Title */}
                 <div className="absolute bottom-8 left-8 pr-8 z-10">
-                  <div className="flex flex-wrap gap-2 mb-3">
+                  <div className="flex flex-wrap gap-2 mb-4">
                     {featured.category && (
-                      <span className={`px-3 py-1.5 text-[12px] font-bold rounded-full shadow-sm ${getBadgeColor(featured.category)}`}>
+                      <span className="px-3 py-1 bg-white/20 text-white text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-wider">
                         {featured.category}
                       </span>
                     )}
                     {featured.ecosystem && (
-                      <span className={`px-3 py-1.5 text-[12px] font-bold rounded-full shadow-sm ${getBadgeColor(featured.ecosystem)}`}>
+                      <span className="px-3 py-1 bg-white/20 text-white text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-wider">
                         {featured.ecosystem}
                       </span>
                     )}
                   </div>
-                  <h1 className="text-2xl md:text-3xl lg:text-4xl text-white font-bold leading-tight group-hover:opacity-90 transition-opacity">
+                  <p className="text-sm font-medium text-white/90 mb-3 drop-shadow-sm">
+                    {featured.author} · {featured.date} · {featured.readTime} read
+                  </p>
+                  <h1 className="text-2xl md:text-3xl lg:text-4xl text-white font-bold leading-tight group-hover:opacity-90 transition-opacity drop-shadow-md">
                     {featured.title}
                   </h1>
                 </div>

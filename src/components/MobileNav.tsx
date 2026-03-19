@@ -86,7 +86,7 @@ const MobileNav = () => {
                     ) : (
                         <>
                             {/* Main Navigation Pill */}
-                            <div className="flex-1 bg-white/70 backdrop-blur-2xl border border-white/20 rounded-[32px] shadow-2xl py-1.5 px-1.5">
+                            <div className="flex-1 bg-white/70 backdrop-blur-2xl border border-white/20 rounded-[32px] shadow-2xl py-2 px-2">
                                 <nav className="flex items-center justify-between">
                                     {navItems.map((item) => {
                                         const isActive = pathname === item.path;
@@ -95,13 +95,13 @@ const MobileNav = () => {
                                             <Link
                                                 key={item.label}
                                                 to={item.path}
-                                                className={`flex-1 flex flex-col items-center gap-1 py-1.5 rounded-[26px] transition-all duration-300 ${isActive ? "bg-white/80 shadow-sm" : "hover:bg-white/30"
+                                                className={`flex-1 flex flex-col items-center gap-1 py-2 rounded-[26px] transition-all duration-300 ${isActive ? "bg-white/80 shadow-sm" : "hover:bg-white/30"
                                                     } no-underline`}
                                             >
                                                 <div className={isActive ? "text-primary bg-primary/10 p-1.5 rounded-full" : "text-muted-foreground"}>
                                                     <Icon className={`w-5 h-5 ${isActive ? "scale-110" : "scale-100"}`} />
                                                 </div>
-                                                <span className={`text-[9px] font-bold uppercase ${isActive ? "text-primary" : "text-muted-foreground"}`}>
+                                                <span className={`text-[10px] font-bold uppercase tracking-tight ${isActive ? "text-primary" : "text-muted-foreground"}`}>
                                                     {item.label}
                                                 </span>
                                             </Link>

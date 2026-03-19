@@ -20,7 +20,7 @@ const Header = () => {
   const { pathname } = useLocation();
 
   const navLink = (path: string) =>
-    `px-3 py-2 text-sm font-medium transition-colors ${pathname === path
+    `px-2 xl:px-3 py-2 text-sm font-medium transition-colors ${pathname === path
       ? "text-foreground font-bold"
       : "text-muted-foreground hover:text-foreground"
     }`;
@@ -57,11 +57,11 @@ const Header = () => {
             <img src="/sns-logo.png" alt="SNS Groups" className="h-[44px] object-contain" />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-0.5 min-w-0">
             <Link to="/" className={navLink("/")}>Home</Link>
 
             <div className="relative" onMouseEnter={() => setCatOpen(true)} onMouseLeave={() => setCatOpen(false)}>
-              <button className={`px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 ${pathname === "/latest" ? "text-foreground font-bold" : "text-muted-foreground hover:text-foreground"
+              <button className={`px-2 xl:px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 ${pathname === "/latest" ? "text-foreground font-bold" : "text-muted-foreground hover:text-foreground"
                 }`}>
                 Categories <ChevronDown className="w-3 h-3" />
               </button>
@@ -77,7 +77,7 @@ const Header = () => {
             </div>
 
             <div className="relative" onMouseEnter={() => setInstOpen(true)} onMouseLeave={() => setInstOpen(false)}>
-              <button className={`px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 ${instOpen ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              <button className={`px-2 xl:px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 ${instOpen ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}>
                 Institutional Hub <ChevronDown className="w-3 h-3" />
               </button>
@@ -93,7 +93,7 @@ const Header = () => {
             </div>
 
             <div className="relative" onMouseEnter={() => setProdOpen(true)} onMouseLeave={() => setProdOpen(false)}>
-              <button className={`px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 ${prodOpen ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+              <button className={`px-2 xl:px-3 py-2 text-sm font-medium transition-colors flex items-center gap-1 ${prodOpen ? "text-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}>
                 Products & Services <ChevronDown className="w-3 h-3" />
               </button>
