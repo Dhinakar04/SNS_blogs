@@ -17,6 +17,7 @@ const getInstituionColor = (text: string) => {
     "Physiotherapy": "#9298CB",
     "Allied Health Science": "#00A0E3",
     "B.Ed": "#009846",
+    "Bspine": "#FECC00",
     "Square": "#064ee3",
     "SNS Square": "#064ee3",
     "iHub": "#FECC00",
@@ -143,7 +144,7 @@ const Index = () => {
                         className="px-3 py-1 text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-wider shadow-sm"
                         style={{
                           backgroundColor: getInstituionColor(featured.ecosystem),
-                          color: ["Engineering", "Arts", "School", "Physiotherapy", "iHub", "SNS iHub"].includes(featured.ecosystem) ? "#000" : "#fff"
+                          color: ["Engineering", "Arts", "School", "Physiotherapy", "iHub", "SNS iHub", "Bspine"].includes(featured.ecosystem) ? "#000" : "#fff"
                         }}
                       >
                         {featured.ecosystem}
