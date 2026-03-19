@@ -6,6 +6,38 @@ import AISummaryBlock from "@/components/AISummaryBlock";
 import { Heart, Share2, Linkedin, Twitter, MessageCircle, Link as LinkIcon, ArrowLeft, Loader2 } from "lucide-react";
 import { useArticles } from "@/hooks/useArticles";
 
+const getInstituionColor = (text: string) => {
+  const map: Record<string, string> = {
+    "Engineering": "#FECC00",
+    "Technology": "#E31E24",
+    "Arts": "#B0CB1F",
+    "Nursing": "#E5097F",
+    "Pharmacy": "#058D7A",
+    "School": "#EF7F1A",
+    "Physiotherapy": "#9298CB",
+    "Allied Health Science": "#00A0E3",
+    "B.Ed": "#009846",
+    "Square": "#064ee3",
+    "SNS Square": "#064ee3",
+    "iHub": "#FECC00",
+    "SNS iHub": "#FECC00"
+  };
+  return map[text] || "rgba(255,255,255,0.2)";
+};
+
+const getBadgeColor = (text: string) => {
+  const map: Record<string, string> = {
+    "Events": "bg-blue-100 text-blue-700",
+    "Achievements": "bg-pink-100 text-pink-700",
+    "Success Stories": "bg-yellow-100 text-yellow-700",
+    "Placements": "bg-green-100 text-green-700",
+    "Innovation": "bg-purple-100 text-purple-700",
+    "Student Life": "bg-orange-100 text-orange-700",
+    "Industry Insights": "bg-indigo-100 text-indigo-700"
+  };
+  return map[text] || "bg-gray-100 text-gray-700";
+};
+
 const BlogDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -84,10 +116,16 @@ const BlogDetailPage = () => {
         <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
           <div className="container-blog">
             <div className="flex flex-wrap items-center gap-2 mb-3">
-              <span className="inline-block px-3 py-1 bg-white/20 text-white text-[10px] md:text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-widest shadow-sm">
+              <span className={`inline-block px-3 py-1.5 text-[10px] md:text-[11px] font-bold rounded-full border border-black/5 uppercase tracking-widest shadow-sm ${getBadgeColor(article.category)}`}>
                 {article.category}
               </span>
-              <span className="inline-block px-3 py-1 bg-white/20 text-white text-[10px] md:text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-widest shadow-sm">
+              <span
+                className="inline-block px-3 py-1 text-[10px] md:text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-widest shadow-sm"
+                style={{
+                  backgroundColor: getInstituionColor(article.ecosystem),
+                  color: ["Engineering", "Arts", "School", "Physiotherapy", "iHub", "SNS iHub"].includes(article.ecosystem) ? "#000" : "#fff"
+                }}
+              >
                 {article.ecosystem}
               </span>
             </div>

@@ -6,17 +6,36 @@ import { ArrowUpRight, ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import { useState, useRef } from "react";
 import { useArticles } from "@/hooks/useArticles";
 
+const getInstituionColor = (text: string) => {
+  const map: Record<string, string> = {
+    "Engineering": "#FECC00",
+    "Technology": "#E31E24",
+    "Arts": "#B0CB1F",
+    "Nursing": "#E5097F",
+    "Pharmacy": "#058D7A",
+    "School": "#EF7F1A",
+    "Physiotherapy": "#9298CB",
+    "Allied Health Science": "#00A0E3",
+    "B.Ed": "#009846",
+    "Square": "#064ee3",
+    "SNS Square": "#064ee3",
+    "iHub": "#FECC00",
+    "SNS iHub": "#FECC00"
+  };
+  return map[text] || "rgba(255,255,255,0.2)";
+};
+
 const getBadgeColor = (text: string) => {
-  if (!text) return "bg-rose-100 text-rose-800";
-  const hash = text.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  const colors = [
-    "bg-emerald-100 text-emerald-800",
-    "bg-rose-100 text-rose-800",
-    "bg-amber-100 text-amber-800",
-    "bg-sky-100 text-sky-800",
-    "bg-indigo-100 text-indigo-800",
-  ];
-  return colors[hash % colors.length];
+  const map: Record<string, string> = {
+    "Events": "bg-blue-100 text-blue-700",
+    "Achievements": "bg-pink-100 text-pink-700",
+    "Success Stories": "bg-yellow-100 text-yellow-700",
+    "Placements": "bg-green-100 text-green-700",
+    "Innovation": "bg-purple-100 text-purple-700",
+    "Student Life": "bg-orange-100 text-orange-700",
+    "Industry Insights": "bg-indigo-100 text-indigo-700"
+  };
+  return map[text] || "bg-gray-100 text-gray-700";
 };
 
 const Index = () => {
@@ -115,12 +134,18 @@ const Index = () => {
                 <div className="absolute bottom-8 left-8 pr-8 z-10">
                   <div className="flex flex-wrap gap-2 mb-4">
                     {featured.category && (
-                      <span className="px-3 py-1 bg-white/20 text-white text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-wider">
+                      <span className={`inline-block px-3 py-1.5 text-[11px] font-bold rounded-full border border-black/5 uppercase tracking-wider shadow-sm ${getBadgeColor(featured.category)}`}>
                         {featured.category}
                       </span>
                     )}
                     {featured.ecosystem && (
-                      <span className="px-3 py-1 bg-white/20 text-white text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-wider">
+                      <span
+                        className="px-3 py-1 text-[11px] font-bold rounded-full backdrop-blur-md border border-white/20 uppercase tracking-wider shadow-sm"
+                        style={{
+                          backgroundColor: getInstituionColor(featured.ecosystem),
+                          color: ["Engineering", "Arts", "School", "Physiotherapy", "iHub", "SNS iHub"].includes(featured.ecosystem) ? "#000" : "#fff"
+                        }}
+                      >
                         {featured.ecosystem}
                       </span>
                     )}
@@ -152,20 +177,20 @@ const Index = () => {
           <div className="lg:col-span-4 flex flex-col lg:border-l lg:border-border/80 lg:pl-10">
             <h2 className="text-sm font-semibold text-muted-foreground mb-4">Most viewed</h2>
             <div className="flex flex-col flex-1 gap-0">
-              {mostViewed.map((a, index) => (
-                <Link
-                  key={a.id}
-                  to={`/article/${a.id}`}
-                  className="flex items-start gap-4 py-5 border-b border-border/60 last:border-0 group no-underline"
-                >
-                  <span className="text-5xl font-light text-muted-foreground/30 leading-none">{index + 1}</span>
-                  <div className="flex-1 min-w-0 flex flex-col justify-center">
-                    <h3 className="text-[17px] font-semibold leading-snug group-hover:text-primary transition-colors line-clamp-2">
+              {mostViewed.map((a) => (
+                <Link key={a.id} to={`/article/${a.id}`} className="group flex gap-3 py-4 border-b border-border last:border-0 items-start">
+                  <div className="w-20 h-20 shrink-0 rounded-lg overflow-hidden bg-muted">
+                    <img
+                      src={a.image}
+                      alt=""
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="min-w-0 pt-0.5">
+                    <h3 className="text-[14px] font-bold leading-tight group-hover:text-primary transition-colors line-clamp-2 mb-2">
                       {a.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground mt-1.5">
-                      {a.date} • {a.readTime}
-                    </p>
+                    <p className="metadata text-[11px]">{a.date} · {a.readTime}</p>
                   </div>
                 </Link>
               ))}

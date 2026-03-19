@@ -9,17 +9,36 @@ interface ArticleCardProps {
   hideEcosystemLabel?: boolean;
 }
 
+const getInstituionColor = (text: string) => {
+  const map: Record<string, string> = {
+    "Engineering": "#FECC00",
+    "Technology": "#E31E24",
+    "Arts": "#B0CB1F",
+    "Nursing": "#E5097F",
+    "Pharmacy": "#058D7A",
+    "School": "#EF7F1A",
+    "Physiotherapy": "#9298CB",
+    "Allied Health Science": "#00A0E3",
+    "B.Ed": "#009846",
+    "Square": "#064ee3",
+    "SNS Square": "#064ee3",
+    "iHub": "#FECC00",
+    "SNS iHub": "#FECC00"
+  };
+  return map[text] || null;
+};
+
 const getBadgeColor = (text: string) => {
-  if (!text) return "bg-rose-100 text-rose-800";
-  const hash = text.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  const colors = [
-    "bg-emerald-100 text-emerald-800", // Green
-    "bg-rose-100 text-rose-800", // Pink
-    "bg-amber-100 text-amber-800", // Orange
-    "bg-sky-100 text-sky-800", // Blue
-    "bg-indigo-100 text-indigo-800", // Purple
-  ];
-  return colors[hash % colors.length];
+  const map: Record<string, string> = {
+    "Events": "bg-blue-100 text-blue-700",
+    "Achievements": "bg-pink-100 text-pink-700",
+    "Success Stories": "bg-yellow-100 text-yellow-700",
+    "Placements": "bg-green-100 text-green-700",
+    "Innovation": "bg-purple-100 text-purple-700",
+    "Student Life": "bg-orange-100 text-orange-700",
+    "Industry Insights": "bg-indigo-100 text-indigo-700"
+  };
+  return map[text] || "bg-gray-100 text-gray-700";
 };
 
 const ArticleCard = ({ article, hideEcosystemLabel }: ArticleCardProps) => {
@@ -56,7 +75,7 @@ const ArticleCard = ({ article, hideEcosystemLabel }: ArticleCardProps) => {
         {/* Top-left labels (pills) */}
         <div className="absolute top-4 left-4 flex flex-wrap gap-2 pr-16 z-10">
           {article.category && (
-            <span className={`px-3 py-1.5 text-[12px] font-bold rounded-full shadow-sm ${getBadgeColor(article.category)}`}>
+            <span className={`inline-block px-3 py-1.5 text-[12px] font-bold rounded-full border border-black/5 shadow-sm ${getBadgeColor(article.category)}`}>
               {article.category}
             </span>
           )}
@@ -95,7 +114,13 @@ const ArticleCard = ({ article, hideEcosystemLabel }: ArticleCardProps) => {
         <div className="flex justify-between items-center mb-3">
           <p className="text-[12px] text-muted-foreground font-bold uppercase">{article.date}</p>
           {!hideEcosystemLabel && article.ecosystem && (
-            <span className="inline-block px-4 py-1.5 bg-secondary text-secondary-foreground text-[12px] font-bold rounded-[20px]">
+            <span
+              className="inline-block px-4 py-1.5 text-[12px] font-bold rounded-[20px] transition-colors"
+              style={{
+                backgroundColor: getInstituionColor(article.ecosystem) || "#f3f4f6",
+                color: ["Engineering", "Arts", "School", "Physiotherapy", "iHub", "SNS iHub"].includes(article.ecosystem) ? "#000" : "#fff"
+              }}
+            >
               {article.ecosystem}
             </span>
           )}
