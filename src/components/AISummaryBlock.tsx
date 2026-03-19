@@ -5,14 +5,15 @@ interface AISummaryBlockProps {
   articleTitle: string;
   articleExcerpt: string;
   articleUrl: string;
+  articleContent: string;
 }
 
-const AISummaryBlock = ({ articleTitle, articleExcerpt, articleUrl }: AISummaryBlockProps) => {
+const AISummaryBlock = ({ articleTitle, articleExcerpt, articleUrl, articleContent }: AISummaryBlockProps) => {
   const [copied, setCopied] = useState(false);
   const prompt = `Act as a professional article analyst.
 
 Task:
-Analyze and summarize the article from this URL.
+Analyze and summarize the following article (URL provided for citation).
 
 Requirements:
 - Give a short summary (3–4 lines)
@@ -21,7 +22,11 @@ Requirements:
 - Provide a one-line conclusion
 
 Article URL:
-${articleUrl}`;
+${articleUrl}
+
+Article Content:
+Title: ${articleTitle}
+${articleContent}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(prompt);

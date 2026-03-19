@@ -191,6 +191,7 @@ const BlogDetailPage = () => {
               articleTitle={article.title}
               articleExcerpt={article.excerpt}
               articleUrl={window.location.href}
+              articleContent={article.content}
             />
 
             {/* Article body */}
