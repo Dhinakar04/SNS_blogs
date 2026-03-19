@@ -133,11 +133,11 @@ const BlogDetailPage = () => {
       </div>
 
       {/* Hero */}
-      <div className="relative w-full aspect-video md:aspect-[21/9] max-h-[500px] overflow-hidden">
-        <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
-          <div className="container-blog">
+      <div className="container-blog mt-4">
+        <div className="relative w-full aspect-video md:aspect-[21/9] max-h-[500px] rounded-3xl overflow-hidden shadow-2xl">
+          <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10">
             <div className="flex flex-wrap items-center gap-2 mb-3">
               <span className={`inline-block px-3 py-1.5 text-[10px] md:text-[11px] font-bold rounded-full border border-black/5 uppercase tracking-widest shadow-sm ${getBadgeColor(article.category)}`}>
                 {article.category}

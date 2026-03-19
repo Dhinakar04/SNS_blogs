@@ -3,8 +3,8 @@ import { Linkedin, Youtube, ArrowUpRight } from "lucide-react";
 import { categories } from "@/data/mockData";
 
 const Footer = () => (
-  <footer className="w-full bg-[#f8f8f8] border-t border-border pt-20 pb-32 md:pb-12 px-6 md:px-12 lg:px-24 font-sans text-foreground">
-    <div className="max-w-[1400px] mx-auto">
+  <footer className="w-full bg-[#f8f8f8] border-t border-border pt-20 pb-32 md:pb-12 font-sans text-foreground">
+    <div className="container-blog">
       {/* Top Section with Logo and Tagline */}
       <div className="flex flex-col md:flex-row justify-between items-start pb-16 border-b border-border/70">
         <div className="flex-1">
@@ -124,14 +124,6 @@ const Footer = () => (
             <Link to="#" className="hover:text-foreground transition-colors">Privacy</Link>
             <span className="text-border">·</span>
             <Link to="#" className="hover:text-foreground transition-colors">Terms</Link>
-          </div>
-          <div className="flex items-center gap-3 ml-4">
-            <a href="#" className="flex justify-center items-center w-8 h-8 bg-black/5 hover:bg-black/10 transition-colors rounded-sm text-foreground">
-              <Linkedin className="w-4 h-4" />
-            </a>
-            <a href="#" className="flex justify-center items-center w-8 h-8 bg-black/5 hover:bg-black/10 transition-colors rounded-sm text-foreground">
-              <Youtube className="w-4 h-4" />
-            </a>
           </div>
         </div>
       </div>
