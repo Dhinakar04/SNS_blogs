@@ -49,10 +49,32 @@ const BlogDetailPage = () => {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    if (article) {
-      setLikeCount(article.likes);
+    if (article && id) {
+      // Load user status
+      const userLiked = localStorage.getItem(`sns_liked_${id}`) === "true";
+      setLiked(userLiked);
+
+      // Load count from storage or article data
+      const storedCount = localStorage.getItem(`sns_like_count_${id}`);
+      if (storedCount !== null) {
+        setLikeCount(parseInt(storedCount, 10));
+      } else {
+        setLikeCount(article.likes);
+      }
     }
-  }, [article]);
+  }, [article, id]);
+
+  const toggleLike = () => {
+    if (!id) return;
+    const newLikedStatus = !liked;
+    const newCount = newLikedStatus ? likeCount + 1 : likeCount - 1;
+
+    setLiked(newLikedStatus);
+    setLikeCount(newCount);
+
+    localStorage.setItem(`sns_liked_${id}`, newLikedStatus.toString());
+    localStorage.setItem(`sns_like_count_${id}`, newCount.toString());
+  };
 
   if (isLoading) {
     return (
@@ -153,10 +175,10 @@ const BlogDetailPage = () => {
               <button onClick={handleCopyLink} className="p-2 text-muted-foreground hover:text-foreground transition-colors"><LinkIcon className="w-4 h-4" /></button>
               <div className="w-6 border-t border-border/60 my-1" />
               <button
-                onClick={() => { setLiked(!liked); setLikeCount(prev => liked ? prev - 1 : prev + 1); }}
-                className={`flex flex-col items-center gap-1 p-2 transition-colors ${liked ? "text-accent" : "text-muted-foreground hover:text-foreground"}`}
+                onClick={toggleLike}
+                className={`flex flex-col items-center gap-1 p-2 transition-colors ${liked ? "text-rose-500" : "text-muted-foreground hover:text-foreground"}`}
               >
-                <Heart className={`w-4 h-4 ${liked ? "fill-accent" : ""}`} />
+                <Heart className={`w-4 h-4 ${liked ? "fill-rose-500" : ""}`} />
                 <span className="text-[11px] font-semibold">{likeCount}</span>
               </button>
             </div>
@@ -164,7 +186,11 @@ const BlogDetailPage = () => {
 
           {/* Main content */}
           <article className="flex-1 min-w-0 max-w-3xl">
-            <AISummaryBlock articleTitle={article.title} articleExcerpt={article.excerpt} />
+            <AISummaryBlock
+              articleTitle={article.title}
+              articleExcerpt={article.excerpt}
+              articleUrl={window.location.href}
+            />
 
             {/* Article body */}
             <div className="prose-custom">
@@ -181,6 +207,30 @@ const BlogDetailPage = () => {
               <p className="text-sm text-muted-foreground">{copied ? "Link copied!" : ""}</p>
             </div>
           </article>
+        </div>
+
+        {/* Mobile floating action bar */}
+        <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-[90] flex items-center gap-3 bg-secondary/80 backdrop-blur-xl border border-white/20 p-2 rounded-full shadow-2xl animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <button
+            onClick={toggleLike}
+            className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all active:scale-90 ${liked ? "bg-rose-50 text-rose-500" : "hover:bg-rose-50/5 text-muted-foreground"}`}
+          >
+            <Heart className={`w-5 h-5 ${liked ? "fill-rose-500" : ""}`} />
+            <span className="text-sm font-bold">{likeCount}</span>
+          </button>
+          <div className="w-[1px] h-6 bg-border/40" />
+          <button
+            onClick={() => handleShare("whatsapp")}
+            className="p-2.5 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <Share2 className="w-5 h-5" />
+          </button>
+          <button
+            onClick={handleCopyLink}
+            className="p-2.5 text-muted-foreground hover:text-foreground transition-colors pr-4"
+          >
+            <LinkIcon className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Related articles */}
